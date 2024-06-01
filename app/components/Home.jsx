@@ -1,48 +1,20 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import Countdown from '../components/Countdown';
 
-const Countdown = () => {
-  const calculateTimeLeft = () => {
-    const difference = +new Date(`2024-06-14`) - +new Date();
-    let timeLeft = {};
-
-    if (difference > 0) {
-      timeLeft = {
-        days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-        hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-        minutes: Math.floor((difference / 1000 / 60) % 60),
-        seconds: Math.floor((difference / 1000) % 60),
-      };
-    }
-
-    return timeLeft;
-  };
-
-  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setTimeLeft(calculateTimeLeft());
-    }, 1000);
-
-    return () => clearTimeout(timer);
-  });
-
+const Home = ({ closeModal }) => {
   return (
-    <div className="countdown text-black text-4xl">
-      <span>{timeLeft.days || '00'}</span> : <span>{timeLeft.hours || '00'}</span> : <span>{timeLeft.minutes || '00'}</span> : <span>{timeLeft.seconds || '00'}</span>
-    </div>
-  );
-};
-
-const Home = () => {
-  return (
-    <div className="flex min-h-screen flex-col items-center justify-center p-24 bg-cover bg-center"  >
-      <div className="text-center">
-        <h1 className="text-6xl font-bold text-black mb-8">Coming Soon!</h1>
-        <p className="text-2xl text-black mb-16">Our website will be live soon. Stay tuned!</p>
-        <Countdown />
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div className="bg-white p-8 rounded-lg shadow-lg relative">
+        <button className="absolute top-4 right-4 text-xl" onClick={closeModal}>
+          &times;
+        </button>
+        <div className="text-center">
+          <h1 className="text-6xl font-bold text-black mb-8">Coming Soon!</h1>
+          <p className="text-2xl text-black mb-16">Platform  will be live soon. Stay tuned!</p>
+          <Countdown />
+        </div>
       </div>
     </div>
   );
