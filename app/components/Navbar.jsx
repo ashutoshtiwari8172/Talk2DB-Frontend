@@ -1,8 +1,8 @@
-"use client"
+"use client";
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 
-const Navbar = () => {
+const Navbar = ({ openModal }) => {
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -39,12 +39,8 @@ const Navbar = () => {
           </Link>
         </div>
         <div className="space-x-4">
-          <Link href="/login" legacyBehavior>
-            <a className={`py-2 px-4 rounded ${isScrolled ? 'bg-white text-blue-900 hover:bg-gray-200' : 'bg-blue-900 text-white hover:bg-blue-700'}`}>Login</a>
-          </Link>
-          <Link href="/register" legacyBehavior>
-            <a className={`py-2 px-4 rounded border ${isScrolled ? 'bg-transparent text-white border-white hover:bg-white hover:text-blue-900' : 'bg-white text-blue-900 border-blue-900 hover:bg-blue-900 hover:text-white'}`}>Register</a>
-          </Link>
+          <a onClick={openModal} className={`cursor-pointer py-2 px-4 rounded ${isScrolled ? 'bg-white text-blue-900 hover:bg-gray-200' : 'bg-blue-900 text-white hover:bg-blue-700'}`}>Login</a>
+          <a onClick={openModal} className={`cursor-pointer py-2 px-4 rounded border ${isScrolled ? 'bg-transparent text-white border-white hover:bg-white hover:text-blue-900' : 'bg-white text-blue-900 border-blue-900 hover:bg-blue-900 hover:text-white'}`}>Register</a>
         </div>
       </div>
     </nav>
@@ -52,3 +48,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+

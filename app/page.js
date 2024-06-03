@@ -12,10 +12,14 @@ import Navbar from "./components/Navbar";
 import Home from "./components/Home";
 
 export default function Page() {
-  const [showModal, setShowModal] = useState(true);
+  const [showModal, setShowModal] = useState(false);
 
   const closeModal = () => {
     setShowModal(false);
+  };
+
+  const openModal = () => {
+    setShowModal(true);
   };
 
   useEffect(() => {
@@ -24,7 +28,7 @@ export default function Page() {
 
   return (
     <div>
-      <Navbar />
+      <Navbar openModal={openModal} />
       <Header />
       <About />
       <Features />
