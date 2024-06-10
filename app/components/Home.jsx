@@ -12,7 +12,7 @@ const Home = ({ closeModal }) => {
         </button>
         <div className="text-center">
           <h1 className="text-6xl font-bold text-black mb-8">Coming Soon!</h1>
-          <p className="text-2xl text-black mb-16">Platform  will be live soon. Stay tuned!</p>
+          <p className="text-2xl text-black mb-16">Platform  is live for beta testing . Try it out!</p>
           <Countdown />
         </div>
       </div>

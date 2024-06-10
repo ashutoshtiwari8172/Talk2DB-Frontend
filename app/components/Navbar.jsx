@@ -39,8 +39,10 @@ const Navbar = ({ openModal }) => {
           </Link>
         </div>
         <div className="space-x-4">
-          <a onClick={openModal} className={`cursor-pointer py-2 px-4 rounded ${isScrolled ? 'bg-white text-blue-900 hover:bg-gray-200' : 'bg-blue-900 text-white hover:bg-blue-700'}`}>Login</a>
-          <a onClick={openModal} className={`cursor-pointer py-2 px-4 rounded border ${isScrolled ? 'bg-transparent text-white border-white hover:bg-white hover:text-blue-900' : 'bg-white text-blue-900 border-blue-900 hover:bg-blue-900 hover:text-white'}`}>Register</a>
+          {/* <a onClick={openModal} className={`cursor-pointer py-2 px-4 rounded ${isScrolled ? 'bg-white text-blue-900 hover:bg-gray-200' : 'bg-blue-900 text-white hover:bg-blue-700'}`}>Login</a> */}
+          <Link href="/login" className= {`cursor-pointer py-2 px-4 rounded ${isScrolled ? 'bg-white text-blue-900 hover:bg-gray-200' : 'bg-blue-900 text-white hover:bg-blue-700'}`} >Login</Link>
+          {/* <a onClick={openModal} className={`cursor-pointer py-2 px-4 rounded border ${isScrolled ? 'bg-transparent text-white border-white hover:bg-white hover:text-blue-900' : 'bg-white text-blue-900 border-blue-900 hover:bg-blue-900 hover:text-white'}`}>Register</a> */}
+          <Link href="/register" className={`cursor-pointer py-2 px-4 rounded border ${isScrolled ? 'bg-transparent text-white border-white hover:bg-white hover:text-blue-900' : 'bg-white text-blue-900 border-blue-900 hover:bg-blue-900 hover:text-white'}`} >Register</Link>
         </div>
       </div>
     </nav>
