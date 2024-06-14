@@ -8,7 +8,8 @@ const page = () => {
         async function fetchDatabases() {
             const token = localStorage.getItem('token');  // Get the token from local storage
 
-            const response = await fetch('https://main.tok2dbs.com/chatbot/api/databases/', {
+            // const response = await fetch('https://web.tok2dbs.com/chatbot/api/databases/', {
+                const response = await fetch('http://127.0.0.1:8000/chatbot/api/databases/', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
