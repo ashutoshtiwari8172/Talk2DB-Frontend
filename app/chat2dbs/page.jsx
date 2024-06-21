@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
@@ -10,6 +10,7 @@ const page = () => {
   const [conversations, setConversations] = useState([]);
   const [databaseId, setDatabaseId] = useState(null);
   const [databaseName, setDatabaseName] = useState(null);
+  const chatContainerRef = useRef(null);
 
   const router = useRouter();
 
@@ -25,6 +26,13 @@ const page = () => {
       loadConversation(conversationId);
     }
   }, [conversationId]);
+
+  useEffect(() => {
+    // Scroll to the bottom of the chat container whenever messages change
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
+  }, [messages]);
 
   const addMessageToChat = (message, isUser = false) => {
     setMessages((prevMessages) => [
@@ -120,7 +128,6 @@ const page = () => {
     }
   };
 
-
   const createNewChat = async () => {
     setConversationId(null);
     setMessages([]);
@@ -211,21 +218,15 @@ const page = () => {
         <div className="bg-white text-blue-900 border p-4 text-center text-xl">
           Chat with <span id="chat-database-name">{databaseName}</span>
         </div>
-        <div className="flex-grow p-4 overflow-y-auto bg-white">
+        <div ref={chatContainerRef} className="flex-grow p-4 overflow-y-auto bg-white flex justify-center">
           <div className="flex flex-col space-y-4">
             {messages.map((message, index) => (
               <div
                 key={index}
-                className={`max-w-3xl ${
-                  message.isUser ? 'self-end' : 'self-start'
-                }`}
+                className={`max-w-3xl w-full flex ${message.isUser ? 'justify-end' : 'justify-start'}`}
               >
                 <div
-                  className={`message p-3 rounded-lg ${
-                    message.isUser
-                      ? 'bg-blue-900 text-white'
-                      : 'bg-gray-200 text-gray-800'
-                  }`}
+                  className={`message p-3 rounded-lg ${message.isUser ? 'bg-blue-900 text-white' : 'bg-gray-200 text-gray-800'} text-center`}
                 >
                   {message.content}
                 </div>
@@ -233,6 +234,7 @@ const page = () => {
             ))}
           </div>
         </div>
+
         <div className="p-3 border-t justify-center border-gray-300 bg-white flex">
           <input
             type="text"
