@@ -25,6 +25,12 @@ const Page = () => {
   const chatContainerRef = useRef(null);
 
   const router = useRouter();
+  const modelNames = {
+    Groq_llm: 'GROQ',
+    gpt_3_llm: 'GPT-3',
+    gpt_4_llm: 'GPT-4',
+    gpt_4o_llm: 'GPT-4o'
+  };
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -218,7 +224,7 @@ const Page = () => {
           )}
         </div>
   
-        {expanded && (
+        {/* {expanded && (
           <div className="mt-auto">
             <label htmlFor="model-select" className="block mb-2">Select LLM Model:</label>
             <select
@@ -234,7 +240,7 @@ const Page = () => {
               <option value="gpt_4o_llm">GPT-4o</option>
             </select>
           </div>
-        )}
+        )} */}
       </nav>
   
       <div className="flex flex-col flex-grow">
@@ -323,128 +329,67 @@ const Page = () => {
         </div>
       </div>
 
-       {/* <nav className={`h-full flex flex-col bg-gray-100 text-gray-950 p-5 transition-width duration-300 ${expandedtwo ? "w-64" : "w-20"}`}>
-      {expandedtwo && (
-          <h2 className="text-2xl font-bold text-center mb-5">Select Model</h2>
-        )}
+      <nav className={`h-full flex flex-col bg-gray-100 text-gray-950 p-5 transition-width duration-300 ${expandedtwo ? "w-64" : "w-20"}`}>
+  <div className="flex items-center justify-between mb-5">
+    <button
+      className="flex flex-col items-center"
+      onClick={() => setExpandedtwo((curr) => !curr)}
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        fill="currentColor"
+        viewBox="0 0 256 256"
+      >
+        <path d="M230.91,172A8,8,0,0,1,228,182.91l-96,56a8,8,0,0,1-8.06,0l-96-56A8,8,0,0,1,36,169.09l92,53.65,92-53.65A8,8,0,0,1,230.91,172ZM220,121.09l-92,53.65L36,121.09A8,8,0,0,0,28,134.91l96,56a8,8,0,0,0,8.06,0l96-56A8,8,0,1,0,220,121.09ZM24,80a8,8,0,0,1,4-6.91l96-56a8,8,0,0,1,8.06,0l96,56a8,8,0,0,1,0,13.82l-96,56a8,8,0,0,1-8.06,0l-96-56A8,8,0,0,1,24,80Zm23.88,0L128,126.74,208.12,80,128,33.26Z"></path>
+      </svg>
+      <span className="text-sm mt-1">Models</span>
+      
+      {expandedtwo  && <span className="text-sm mt-1"></span>}
+    </button>
     
-    
-          
-          <button
-            className="mt-5  ml-2 flex "
-            onClick={() => setExpandedtwo((curr) => !curr)}
-          >
-            <div className="flex flex-col items-center">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                fill="currentColor"
-                viewBox="0 0 256 256"
-                className="mr-2"
-              >
-                <path d="M230.91,172A8,8,0,0,1,228,182.91l-96,56a8,8,0,0,1-8.06,0l-96-56A8,8,0,0,1,36,169.09l92,53.65,92-53.65A8,8,0,0,1,230.91,172ZM220,121.09l-92,53.65L36,121.09A8,8,0,0,0,28,134.91l96,56a8,8,0,0,0,8.06,0l96-56A8,8,0,1,0,220,121.09ZM24,80a8,8,0,0,1,4-6.91l96-56a8,8,0,0,1,8.06,0l96,56a8,8,0,0,1,0,13.82l-96,56a8,8,0,0,1-8.06,0l-96-56A8,8,0,0,1,24,80Zm23.88,0L128,126.74,208.12,80,128,33.26Z"></path>
-              </svg>
-              <span>Select Model</span>
-            </div>
-          </button>
+    {expandedtwo && (
+      <h2 className="text-lg font-bold">Select Model</h2>
+    )}
+  </div>
 
-          <div className="mb-5 max-h-screen overflow-y-auto">
-          <div
-        className={`mb-3 text-gray-950 px-4 py-2 rounded cursor-pointer hover:bg-gray-100 focus:outline-none ${
-          !expandedtwo && "hidden"
-        } ${selectedModel === "Model 1" ? "bg-blue-200" : ""}`}
-        onClick={() => handleToggle("Model 1")}
-      >
-        <label className="flex items-center cursor-pointer">
-          <input
-            type="checkbox"
-            checked={selectedModel === "Model 1"}
-            onChange={() => handleToggle("Model 1")}
-            className="sr-only"
-          />
-          <div className="relative">
-            <div
-              className={`block w-10 h-6 rounded-full ${
-                selectedModel === "Model 1" ? "bg-blue-600" : "bg-gray-300"
-              }`}
-            ></div>
-            <div
-              className={`dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition ${
-                selectedModel === "Model 1" ? "transform translate-x-4" : ""
-              }`}
-            ></div>
-          </div>
-          <span className="ml-3">
-            {expandedtwo ? `Model 1` : <span className="truncate">Model 1</span>}
-          </span>
-        </label>
-      </div>
-
+  <div className={`flex-grow ${expandedtwo ? 'block' : 'hidden'}`}>
+    {['Groq_llm', 'gpt_3_llm', 'gpt_4_llm', 'gpt_4o_llm'].map((model) => (
       <div
-        className={`mb-3 text-gray-950 px-4 py-2 rounded cursor-pointer hover:bg-gray-100 focus:outline-none ${
-          !expandedtwo && "hidden"
-        } ${selectedModel === "Model 2" ? "bg-blue-200" : ""}`}
-        onClick={() => handleToggle("Model 2")}
+        key={model}
+        className={`mb-2 text-gray-950 px-2 py-1 rounded cursor-pointer hover:bg-gray-200 focus:outline-none ${
+          selectedModel === model ? "bg-blue-200" : ""
+        } ${
+          conversationId !== null ? "opacity-50 cursor-not-allowed" : ""
+        }`}
+        onClick={() => {
+          if (conversationId === null) {
+            setSelectedModel(model);
+          }
+        }}
       >
-        <label className="flex items-center cursor-pointer">
-          <input
-            type="checkbox"
-            checked={selectedModel === "Model 2"}
-            onChange={() => handleToggle("Model 2")}
-            className="sr-only"
-          />
-          <div className="relative">
+        <label className={`flex items-center w-full ${
+          conversationId !== null ? "cursor-not-allowed" : "cursor-pointer"
+        }`}>
+          <div className="relative mr-2">
             <div
-              className={`block w-10 h-6 rounded-full ${
-                selectedModel === "Model 2" ? "bg-blue-600" : "bg-gray-300"
+              className={`block w-8 h-5 rounded-full ${
+                selectedModel === model ? "bg-blue-600" : "bg-gray-300"
               }`}
             ></div>
             <div
-              className={`dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition ${
-                selectedModel === "Model 2" ? "transform translate-x-4" : ""
+              className={`dot absolute left-0.5 top-0.5 bg-white w-4 h-4 rounded-full transition ${
+                selectedModel === model ? "transform translate-x-3" : ""
               }`}
             ></div>
           </div>
-          <span className="ml-3">
-            {expandedtwo ? `Model 2` : <span className="truncate">Model 2</span>}
-          </span>
+          <span className="text-sm">{modelNames[model]}</span>
         </label>
       </div>
-
-      <div
-        className={`mb-3 text-gray-950 px-4 py-2 rounded cursor-pointer hover:bg-gray-100 focus:outline-none ${
-          !expandedtwo && "hidden"
-        } ${selectedModel === "Model 3" ? "bg-blue-200" : ""}`}
-        onClick={() => handleToggle("Model 3")}
-      >
-        <label className="flex items-center cursor-pointer">
-          <input
-            type="checkbox"
-            checked={selectedModel === "Model 3"}
-            onChange={() => handleToggle("Model 3")}
-            className="sr-only"
-          />
-          <div className="relative">
-            <div
-              className={`block w-10 h-6 rounded-full ${
-                selectedModel === "Model 3" ? "bg-blue-600" : "bg-gray-300"
-              }`}
-            ></div>
-            <div
-              className={`dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition ${
-                selectedModel === "Model 3" ? "transform translate-x-4" : ""
-              }`}
-            ></div>
-          </div>
-          <span className="ml-3">
-            {expandedtwo ? `Model 3` : <span className="truncate">Model 3</span>}
-          </span>
-        </label>
-      </div>
-    </div>
-
-    </nav> */}
+    ))}
+  </div>
+</nav>
 
     </div>
   );
