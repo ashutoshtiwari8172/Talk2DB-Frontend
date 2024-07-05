@@ -9,6 +9,7 @@ import { marked } from 'marked';
 import hljs from 'highlight.js';
 import Image from 'next/image';
 import bot from '../../public/images/bot.png'
+import bot2 from '../../public/images/image.png'
 
 const Page = () => {
   const [userInput, setUserInput] = useState('');
@@ -268,7 +269,7 @@ const Page = () => {
               className={`max-w-3xl w-full flex ${message.isUser ? 'justify-end' : 'justify-start'}`}
             >
               {!message.isUser && (
-                <Image src={bot} alt="Bot Avatar" className="w-8 h-8 m-3 self-start rounded-full" />
+                <Image src={bot2} alt="Bot Avatar" className="w-8 h-8 m-3 self-start rounded-full" />
               )}
               <div
                 className={`message p-3 rounded-lg ${
